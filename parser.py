@@ -1,14 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
-from fp.fp import FreeProxy
-
-px = FreeProxy(rand=True).get()
 
 # Функция для получения последнего твита по ссылке
-def get_latest_tweet_from_url(url, proxies=None):
+def get_latest_tweet_from_url(url):
     try:
         # Отправка GET-запроса к странице Twitter с использованием прокси
-        response = requests.get(url, proxies=proxies)
+        response = requests.get(url)
         response.raise_for_status()  # Проверка на ошибки запроса
 
         # Парсинг HTML-страницы
@@ -39,10 +36,5 @@ def get_latest_tweet_from_url(url, proxies=None):
 # Пример использования
 twitter_url = 'https://twitter.com/ilonmask2'  # Замените на нужную ссылку
 
-# Прокси-сервер (пример)
-proxies = {
-    'http': px,  # Замените на ваш прокси
-    'https': px,  # Замените на ваш прокси
-}
 
-get_latest_tweet_from_url(twitter_url, proxies)
+get_latest_tweet_from_url(twitter_url)
