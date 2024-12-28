@@ -2,7 +2,7 @@ from telebot import TeleBot
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 from os import listdir
 
-TOKEN = '7095880503:AAF8V7VrxPZuOOXgG9_Pyvko3nKMqxW1J2o'
+TOKEN = ''
 USERS = []
 wait_user = False
 

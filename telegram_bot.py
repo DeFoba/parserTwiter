@@ -1,4 +1,5 @@
 import telebot
+import time
 from telebot import types
 from twitter_bot import TwitterBot
 from config import API_TOKEN, ACCOUNTS_FILE, KEYWORDS_FILE, PUBLIC_ID
@@ -182,4 +183,9 @@ def cancel(call):
     main_menu(call.message)
 
 if __name__ == "__main__":
-    bot.polling(none_stop=True)
+    while True:
+        try:
+            bot.polling(none_stop=True)
+        except Exception as e:
+            print(f"Ошибка: {e}")
+            time.sleep(15)  # Подождите перед повторной попыткой
