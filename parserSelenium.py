@@ -4,8 +4,11 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 options = webdriver.ChromeOptions()
-options.add_argument('--headless')
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+options.add_argument('--headless')  # Запуск в безголовом режиме
+options.add_argument('--no-sandbox')  # Отключение песочницы
+options.add_argument('--disable-dev-shm-usage')  # Использование /tmp вместо /dev/shm
+options.add_argument('--remote-debugging-port=9222')  # Убедитесь, что порт открыт
+
 
 # Функция для получения последнего твита
 def get_latest_tweet_with_selenium():
