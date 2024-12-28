@@ -80,6 +80,7 @@ class TwitterBot:
 
     def check_for_new_tweets(self):
         options = webdriver.ChromeOptions()
+        options.add_argument('--headless')  # Безголовый режим (не отображает браузер)
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
 
