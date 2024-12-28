@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 # Функция для получения последнего твита по ссылке
 def get_latest_tweet_from_url(url):
     try:
-        # Отправка GET-запроса к странице Twitter с использованием прокси
+        # Отправка GET-запроса к странице x.com
         response = requests.get(url)
         response.raise_for_status()  # Проверка на ошибки запроса
 
@@ -22,7 +22,7 @@ def get_latest_tweet_from_url(url):
             
             # Формирование ссылки на твит
             username = url.split('/')[-1]  # Получение имени пользователя из URL
-            tweet_link = f"https://twitter.com/{username}/status/{tweet_id}"
+            tweet_link = f"https://x.com/{username}/status/{tweet_id}"
             
             print("Последний твит:")
             print(tweet_text)
@@ -34,7 +34,7 @@ def get_latest_tweet_from_url(url):
         print(f"Ошибка при запросе: {e}")
 
 # Пример использования
-twitter_url = 'https://twitter.com/ilonmask2'  # Замените на нужную ссылку
-
+# twitter_url = 'https://x.com/имя_пользователя'  # Замените на нужную ссылку
+twitter_url = input('Enter url: ')  # Замените на нужную ссылку
 
 get_latest_tweet_from_url(twitter_url)
