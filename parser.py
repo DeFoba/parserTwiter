@@ -12,22 +12,25 @@ def get_latest_tweet_from_url(url):
         soup = BeautifulSoup(response.text, 'html.parser')
 
         # Поиск последнего твита
-        tweet = soup.find('div', {'data-testid': 'tweet'})
+        tweet = soup.find('article')  # Обычно твиты находятся в теге <article>
         if tweet:
             # Извлечение текста твита
-            tweet_text = tweet.find('div', {'lang': 'ru'}).get_text()
+            tweet_text = tweet.get_text()
             
-            # Извлечение tweet_id
-            tweet_id = tweet['data-tweet-id']
+            # Извлечение tweet_id (если доступно)
+            tweet_id = tweet['data-tweet-id'] if 'data-tweet-id' in tweet.attrs else None
             
             # Формирование ссылки на твит
             username = url.split('/')[-1]  # Получение имени пользователя из URL
-            tweet_link = f"https://x.com/{username}/status/{tweet_id}"
+            tweet_link = f"https://x.com/{username}/status/{tweet_id}" if tweet_id else None
             
             print("Последний твит:")
             print(tweet_text)
-            print("Ссылка на твит:")
-            print(tweet_link)
+            if tweet_link:
+                print("Ссылка на твит:")
+                print(tweet_link)
+            else:
+                print("Не удалось получить ID твита.")
         else:
             print("Не удалось найти твит.")
     except requests.RequestException as e:
@@ -35,6 +38,6 @@ def get_latest_tweet_from_url(url):
 
 # Пример использования
 # twitter_url = 'https://x.com/имя_пользователя'  # Замените на нужную ссылку
-twitter_url = input('Enter url: ')  # Замените на нужную ссылку
+twitter_url = input('Enter url: ')
 
 get_latest_tweet_from_url(twitter_url)
