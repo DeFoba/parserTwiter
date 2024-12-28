@@ -1,3 +1,4 @@
+import re
 import time
 import threading
 from selenium import webdriver
@@ -102,7 +103,7 @@ class TwitterBot:
 
                     try:
                         # Ожидание появления твитов на странице
-                        tweets = WebDriverWait(driver, 10).until(
+                        tweets = WebDriverWait(driver, 15).until(
                             EC.presence_of_all_elements_located((By.XPATH, '//article[contains(@role, "article")]'))
                         )
 
@@ -112,7 +113,7 @@ class TwitterBot:
                             tweet_link = tweet.find_element(By.XPATH, './/a[contains(@href, "/status/")]').get_attribute('href')
 
                             # Проверка на наличие хотя бы одного ключевого слова и уникальность
-                            if any(keyword.lower() in tweet_text.lower() for keyword in self.keywords) and tweet_link not in self.seen_tweets:
+                            if any(re.search(r'\b' + re.escape(keyword.lower()) + r'\b', tweet_text.lower()) for keyword in self.keywords) and tweet_link not in self.seen_tweets:
                                 print(f"Найден твит с ключевым словом: {tweet_text}")
                                 print(f"Ссылка на твит: {tweet_link}")
 
